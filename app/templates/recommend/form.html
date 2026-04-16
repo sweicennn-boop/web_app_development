@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center mt-4">
+    <div class="col-lg-6">
+        <div class="glass-card p-5">
+            <h2 class="fw-bold mb-4 text-center">推薦你喜歡的歌</h2>
+            <p class="text-secondary text-center mb-4">將你的愛歌分享給所有人，審核通過後就會出現在清單中！</p>
+
+            <form action="{{ url_for('recommend.create_recommendation') }}" method="POST">
+                <div class="mb-3">
+                    <label for="title" class="form-label text-white">歌名 <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control px-3 py-2" id="title" name="title" required placeholder="例如：稻香">
+                </div>
+                <div class="mb-3">
+                    <label for="artist" class="form-label text-white">歌手 <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control px-3 py-2" id="artist" name="artist" required placeholder="例如：周杰倫">
+                </div>
+                <div class="mb-3">
+                    <label for="reason" class="form-label text-white">推薦原因</label>
+                    <textarea class="form-control px-3 py-2" id="reason" name="reason" rows="3" placeholder="為什麼這首歌會打動你？"></textarea>
+                </div>
+                <div class="mb-4">
+                    <label for="submitter_name" class="form-label text-white">你的暱稱</label>
+                    <input type="text" class="form-control px-3 py-2" id="submitter_name" name="submitter_name" placeholder="留空將顯示為匿名">
+                </div>
+                <div class="d-grid mt-5">
+                    <button type="submit" class="btn btn-gradient py-3 rounded-pill fw-bold fs-5">
+                        <i class="bi bi-send me-2"></i>送出推薦
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

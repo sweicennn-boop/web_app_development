@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center mt-4">
+    <div class="col-lg-6">
+        <div class="glass-card p-5 text-center">
+            <p class="text-uppercase tracking-wide text-secondary mb-1">
+                根據您的 {% if current_type == 'mood' %}心情{% else %}天氣{% endif %} 「<span class="text-white">{{ current_tag }}</span>」
+            </p>
+            <h2 class="fw-bold mb-4">我們為您推薦：</h2>
+            
+            <div class="my-5">
+                <h1 class="display-5 fw-bold" style="background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                    {{ song.title }}
+                </h1>
+                <h4 class="text-white mt-3"><i class="bi bi-person me-2"></i>{{ song.artist }}</h4>
+                {% if song.style %}
+                    <span class="badge bg-secondary mt-2 px-3 py-2 rounded-pill">{{ song.style }}</span>
+                {% endif %}
+            </div>
+
+            {% if song.audio_url %}
+                <div class="my-4">
+                    <a href="{{ song.audio_url }}" target="_blank" class="btn btn-outline-light rounded-pill px-4 py-2">
+                        <i class="bi bi-play-circle me-2"></i>在 YouTube 上收聽
+                    </a>
+                </div>
+            {% endif %}
+
+            <div class="d-flex justify-content-center gap-3 mt-5">
+                <a href="{{ url_for('main.result', type=current_type, tag=current_tag) }}" class="btn btn-gradient px-4 py-2 rounded-pill">
+                    <i class="bi bi-arrow-clockwise me-2"></i>換一首
+                </a>
+                <a href="{{ url_for('main.index') }}" class="btn btn-outline-secondary px-4 py-2 rounded-pill text-white">
+                    <i class="bi bi-house me-2"></i>重新選擇
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

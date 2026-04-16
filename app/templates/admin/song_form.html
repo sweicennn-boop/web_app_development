@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center mt-4">
+    <div class="col-lg-8">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="fw-bold">
+                {% if song %}
+                    <i class="bi bi-pencil-square me-2"></i>編輯歌曲 #{{ song.id }}
+                {% else %}
+                    <i class="bi bi-plus-square me-2"></i>新增歌曲
+                {% endif %}
+            </h2>
+            <a href="{{ url_for('admin.dashboard') }}" class="btn btn-outline-secondary">返回儀表板</a>
+        </div>
+
+        <div class="glass-card p-5">
+            <form action="{% if song %}{{ url_for('admin.update_song', song_id=song.id) }}{% else %}{{ url_for('admin.create_song') }}{% endif %}" method="POST">
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="title" class="form-label text-white">歌名 <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="title" name="title" value="{{ song.title if song else '' }}" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="artist" class="form-label text-white">歌手 <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="artist" name="artist" value="{{ song.artist if song else '' }}" required>
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="style" class="form-label text-white">歌曲風格</label>
+                    <input type="text" class="form-control" id="style" name="style" value="{{ song.style if song else '' }}">
+                </div>
+                
+                <div class="mb-4">
+                    <label for="audio_url" class="form-label text-white">試聽連結 (YouTube 等)</label>
+                    <input type="url" class="form-control" id="audio_url" name="audio_url" value="{{ song.audio_url if song else '' }}">
+                </div>
+
+                <div class="d-flex justify-content-end">
+                    <button type="submit" class="btn btn-{% if song %}warning{% else %}success{% endif %} px-5">
+                        儲存歌曲
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

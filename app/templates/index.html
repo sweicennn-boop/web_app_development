@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center text-center mt-5">
+    <div class="col-lg-8">
+        <h1 class="display-4 fw-bold mb-4" style="background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">今天過得好嗎？</h1>
+        <p class="lead text-secondary mb-5">點選你當下的心情或天氣，讓我們為你推薦一首適合的歌。</p>
+        
+        <div class="glass-card p-5 mb-5">
+            <h3 class="fw-bold mb-4"><i class="bi bi-emoji-smile me-2"></i> 選擇心情</h3>
+            <div class="d-flex flex-wrap justify-content-center">
+                {% for mood in moods %}
+                    <a href="{{ url_for('main.result', type='mood', tag=mood.name) }}" class="mood-btn text-decoration-none">
+                        {{ mood.name }}
+                    </a>
+                {% endfor %}
+                {% if not moods %}
+                    <p class="text-muted">（目前沒有設定心情標籤）</p>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class="glass-card p-5">
+            <h3 class="fw-bold mb-4"><i class="bi bi-cloud-sun me-2"></i> 選擇天氣</h3>
+            <div class="d-flex flex-wrap justify-content-center">
+                {% for weather in weathers %}
+                    <a href="{{ url_for('main.result', type='weather', tag=weather.name) }}" class="mood-btn text-decoration-none">
+                        {{ weather.name }}
+                    </a>
+                {% endfor %}
+                {% if not weathers %}
+                    <p class="text-muted">（目前沒有設定天氣標籤）</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
